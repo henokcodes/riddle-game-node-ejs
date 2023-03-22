@@ -16,22 +16,29 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- audio -->
-    <embed src="/audio/bgsound.wav" loop="true" autostart="true" width="2" height="0">
+    <!-- <embed src="/audio/bgsound.wav" loop="true" autostart="true" width="2" height="0"> -->
         <!-- css file -->
     <link rel="stylesheet" href="/style/style.css">
     <title>Riddle Game</title>
    
+   </script>
 </head>
 
 <body>
-
+    <div class="musicOn">
+        <audio id="audio" style="display:none;" src="/audio/bgsound.wav" controls autoplay loop>
+      </div>
+      <div class="timedate">
+        <p><strong id="time"></strong></p>
+      </div>
     
-    
-    <button class="btn-start btn btn-warning btn-lg text-white">Start Game</button>
-    <!-- <button class="btn-options btn btn-warning btn-lg text-white">Options</button>
-    <button class="btn-highscore btn btn-warning btn-lg text-white">High Score</button>
-    <button class="btn-leaderboard btn btn-warning btn-lg text-white">Leader Board</button> -->
-
+    <div class="div-start">
+        <button class="btn-start btn btn-warning btn-lg text-white">Start Game</button><br>
+        <button class="btn-options btn btn-warning btn-lg text-white oback">Options</button><br>
+        <button class="btn-highscore btn btn-warning btn-lg text-white highscore">High Score</button><br>
+        <button class="btn-leaderboard btn btn-warning btn-lg text-white leaderboard">Leader Board</button><br>
+    </div>
+   
     <!-- Quiz Box -->
     <div class="quiz-box card">
         <header class="card-header">
@@ -56,7 +63,53 @@
             <button class="btn btn-primary next">Next question</button>
         </footer>
     </div>
+<!-- options menu -->
+    <div class="option-box card ">
+        <header class="card-header">
+            <span>Options</span>
+        </header>
+        <section  class="card-body">
+            <p>Sound:</p>
+            <label for="">On</label>
+            <input type="radio" name="sound" id="sound_off">
+            <label for="">Off</label>
+            <input type="radio" name="sound" id="sound_on">
+        </section>
+        <footer class="card-footer">
+            <button class="btn btn-primary oback">Back to Menu</button>
+        </footer>
+    </div>
+    <!-- highscore -->
+    <div class="highscore-box card ">
+        <header class="card-header">
+            <span>High Score</span>
+        </header>
+        <section  class="card-body">
+            <p><strong>Time Stamp</strong> : <strong>Score</strong></p>
+            <p><strong>12-03-2023</strong> : <strong>23</strong></p>
+            <p><strong>12-03-2023</strong> : <strong>23</strong></p>
+            <p><strong>12-03-2023</strong> : <strong>23</strong></p>
+        </section>
+        <footer class="card-footer">
+            <button class="btn btn-primary highscore">Back to Menu</button>
+        </footer>
+    </div>
+    <!-- Leaderboard -->
 
+    <div class="leaderboard-box card ">
+        <header class="card-header">
+            <span>LeaderBoard (Top 10)</span>
+        </header>
+        <section  class="card-body">
+            <p># <strong> Name</strong> : <strong> Score</strong></p>
+            <p>1 <strong> Henok</strong> : <strong> 23</strong></p>
+            <p>2 <strong> Kal</strong> : <strong> 23</strong></p>
+            <p>3 <strong> Mussie</strong> : <strong> 23</strong></p>
+        </section>
+        <footer class="card-footer">
+            <button class="btn btn-primary leaderboard">Back to Menu</button>
+        </footer>
+    </div>
     <!-- Score Box -->
     <div class="score-box card">
         <i class="fa-solid fa-flag-checkered icon"></i>

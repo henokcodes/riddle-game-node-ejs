@@ -10,6 +10,57 @@ $(".btn-start").click(() => {
     startLine();
 });
 
+`use strict`;
+function refreshTime() {
+  const timeDisplay = $("#time");
+  const dateString = new Date().toLocaleString();
+  const formattedString = dateString.replace(", ", " - ");
+  timeDisplay.text(formattedString);
+  timeDisplay.css("color","white");
+ 
+}
+  setInterval(refreshTime, 1000);
+
+let audio = document.querySelector('.musicOn audio');
+$('#sound_off').click(()=>{
+    audio.paused ? audio.play() : music_stop(); 
+})
+$('#sound_on').click(()=>{
+    audio.paused ? audio.play() : music_stop(); 
+})
+// on_off.onclick = function() {
+//   audio.paused ? audio.play() : music_stop();
+// }
+$('.oback').click(()=>{
+    if($('.option-box').hasClass('active')){
+        $('.option-box').removeClass('active')
+    } else {
+        $('.option-box').addClass('active')
+    }   
+})
+
+$('.highscore').click(()=>{
+    if($('.highscore-box').hasClass('active')){
+        $('.highscore-box').removeClass('active')
+    } else {
+        $('.highscore-box').addClass('active')
+    }   
+})
+
+$('.leaderboard').click(()=>{
+    if($('.leaderboard-box').hasClass('active')){
+        $('.leaderboard-box').removeClass('active')
+    } else {
+        $('.leaderboard-box').addClass('active')
+    }   
+})
+
+
+function music_stop() {
+  audio.pause();
+  audio.currentTime = 0;
+}
+
 // Next Button event
 $(".next").click( () => {
     if (quiz.questions.length > quiz.questionIndex + 1) {
