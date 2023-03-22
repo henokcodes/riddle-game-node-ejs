@@ -21,6 +21,16 @@ function refreshTime() {
 }
   setInterval(refreshTime, 1000);
 
+//   `use strict`;
+// function refreshScore() {
+//   const topScorer = $("#name");
+//   const topScore = $("#score");
+//   topScorer.text(formattedString);
+//   topScore.text(formattedString);
+ 
+// }
+//   setInterval(refreshScore, 1000);
+
 let audio = document.querySelector('.musicOn audio');
 $('#sound_off').click(()=>{
     audio.paused ? audio.play() : music_stop(); 

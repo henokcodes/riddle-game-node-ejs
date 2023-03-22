@@ -12,6 +12,19 @@ body {
 .timedate{
     margin:10px
 }
+.blink {
+    animation: blinker 1s linear infinite;
+    position: absolute;
+    
+    bottom: 5%;
+    right: 10%;
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
 
 .quiz-box,
 .score-box {
