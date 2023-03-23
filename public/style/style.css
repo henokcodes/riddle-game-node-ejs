@@ -10,6 +10,8 @@ body {
   border: 3px solid green;
 } */
 .timedate{
+    display: flex;
+    justify-content: space-between;
     margin:10px
 }
 .blink {

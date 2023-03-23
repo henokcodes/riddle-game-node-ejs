@@ -71,6 +71,10 @@ function music_stop() {
   audio.currentTime = 0;
 }
 
+window.onload = ()=>{
+    updatehscore();
+}
+
 // Next Button event
 $(".next").click( () => {
     if (quiz.questions.length > quiz.questionIndex + 1) {
@@ -160,11 +164,59 @@ function showNumber(questionNumber, allQuestions) {
     $(".badge").html(tag);
 }
 
+function updatehscore(){
+    let list =  $('.highscore-box section');
+    let p = '';
+
+   
+    const cookieValue = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("user_name="))
+    ?.split("=")[1];
+    $.ajax('/gethighscore', {
+        type:'post',
+        data: {
+            username: cookieValue
+        } 
+    }).done(function(res){
+        for(let object of res){
+          p+='<p><strong class="timestamp">'+ object.timestamp+ '</strong> : <strong class="sco">'+ object.score +'</strong></p>';
+        }
+        list.append(p);
+        console.log(res)   
+    }).fail(function(){
+        console.log("error")
+    })
+
+   
+    
+    
+}
+
 // Function for Show Score
 function showScore(correctAnswers, allQuestions) {
+    const cookieValue = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("user_name="))
+    ?.split("=")[1];
+        $.ajax('/updatescore', {
+            type:'post',
+            data: {
+                username: cookieValue,
+                score: correctAnswers
+            } 
+        }).done(function(res){
+            console.log(res)
+            
+        }).fail(function(){
+            console.log("error")
+        })
+    
+    
     let tag = `You have ${correctAnswers} correct answers out of ${allQuestions}`;
     $(".score-text").html(tag);
-   
+
+    updatehscore();
 }
 
 // Timer 
