@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        padding: 30px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .card {
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-header {
+        background-color: #343a40;
+        color: #fff;
+        padding: 20px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+
+      .card-header h2 {
+        margin: 0;
+        font-size: 28px;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .list-group {
+        margin-bottom: 0;
+      }
+
+      .list-group-item {
+        border: none;
+        background-color: transparent;
+        padding: 15px;
+      }
+
+      .list-group-item:hover {
+        background-color: #f1f1f1;
+      }
+
+      .list-group-item .badge {
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #6c757d;
+        padding: 8px;
+        border-radius: 5px;
+      }
+
+      .list-group-item .badge.easy {
+        background-color: #28a745;
+      }
+
+      .list-group-item .badge.medium {
+        background-color: #ffc107;
+      }
+
+      .list-group-item .badge.hard {
+        background-color: #dc3545;
+      }
+
+      .form-label {
+        font-weight: bold;
+      }
+
+      .form-control {
+        border-radius: 5px;
+      }
+
+      .form-select {
+        border-radius: 5px;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+
+      .btn-primary:hover {
+        background-color: #0069d9;
+      }
+
+      .btn-primary:focus,
+      .btn-primary:active {
+        background-color: #0062cc;
+      }
+
+      .alert {
+        margin-bottom: 20px;
+        border-radius: 10px;
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border-color: #c3e6cb;
+      }
+
+      .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-color: #f5c6cb;
+      }
+
+      .alert-warning {
+        background-color: #fff3cd;
+        color: #856404;
+        border-color: #ffeeba;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timedate">
+        <span><strong id="time"></strong></span>
+        <a href="/logout"><img src="/images/logout.png" width="50px" alt=""></a>
+      </div>
+    <div class="container mt-5">
+      <div class="row">
+        <!-- Available Questions -->
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h2>Available Questions</h2>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <% questions.forEach(function(question) { %>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <%= question.text %>
+                  <span class="badge bg-secondary"
+                    ><%= question.difficulty %></span
+                  >   <form action="/questions/<%= question._id %>?_method=DELETE" method="POST">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </li>
+                <% }); %>
+              </ul>
+            </div>
+         
+          </div>
+        </div>
+
+        <!-- Add Question -->
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h2>Add Question</h2>
+            </div>
+            <div class="card-body">
+              <form action="/questions" method="POST">
+                <div class="mb-3">
+                  <label for="text" class="form-label">Question Text</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="text"
+                    name="text"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="choices" class="form-label"
+                    >Answer Choices (comma separated)</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="choices"
+                    name="choices"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="answer" class="form-label">Correct Answer</label>
+                  <select
+                    class="form-select"
+                    id="answer"
+                    name="answer"
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Select Correct Answer
+                    </option>
+                    <option value="a">A</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                    <option value="d">D</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="difficulty" class="form-label">Difficulty</label>
+                  <select
+                    class="form-select"
+                    id="difficulty"
+                    name="difficulty"
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Select Difficulty
+                    </option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Add Question
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

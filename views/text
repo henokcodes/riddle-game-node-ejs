@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question Bank</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css"
+      integrity="sha512-0nTtTcE3q93bMndJ07HcRzDd2BtGsfLMtYsHtJfZD1aZ+XaNSIKP2OLGhjNx+iJz+ePnJFpawvc40TYmF0Tq3w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Question Bank</h1>
+
+      <!-- Available Questions -->
+      <div class="card mb-3">
+        <div class="card-header">Available Questions</div>
+        <div class="card-body">
+          <ul class="list-group">
+            <% questions.forEach(function(question) { %>
+            <li class="list-group-item">
+              <%= question.text %>
+              <span class="badge bg-secondary float-end"
+                ><%= question.difficulty %></span
+              >
+            </li>
+            <% }); %>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Add Question -->
+      <div class="card">
+        <div class="card-header">Add Question</div>
+        <div class="card-body">
+          <form action="/questions" method="POST">
+            <div class="mb-3">
+              <label for="text" class="form-label">Question text:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="text"
+                name="text"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="choices" class="form-label">Answer choices:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="choices"
+                name="choices"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="answer" class="form-label">Correct answer:</label>
+              <select class="form-select" id="answer" name="answer" required>
+                <option value="" disabled selected>
+                  Select correct answer
+                </option>
+                <% ['a', 'b', 'c', 'd'].forEach(function(choice) { %>
+                <option value="<%= choice %>">
+                  <%= choice.toUpperCase() %>
+                </option>
+                <% }); %>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="difficulty" class="form-label">Difficulty:</label>
+              <select
+                class="form-select"
+                id="difficulty"
+                name="difficulty"
+                required
+              >
+                <option value="" disabled selected>Select difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Question</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+      // Script to toggle the sidebar
+      $(document).ready(function () {
+        $("#sidebarCollapse").on("click", function () {
+          $("#sidebar").toggleClass("active");
+        });
+      });
+    </script>
+  </body>
+</html>
