@@ -10,14 +10,14 @@ const LocalStrategy = require("passport-local").Strategy;
 const path = require("path");
 const cookieParser = require("cookie-parser");
 var ejs = require("ejs");
-
+const methodOverride = require('method-override');
 
 app.use(express.static('public'))
 app.listen(80, () => {
     console.log('Your Server is running on 80');
 })
 mongoose
-  .connect("mongodb+srv://henok:1234asdf@cluster0.jyg1b.mongodb.net/riddle_game?retryWrites=true&w=majority", {
+  .connect("mongodb://localhost:27017/riddle_game", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -40,5 +40,7 @@ app.use(passport.session());
 
 app.set("view engine", "html");
 app.engine("html", ejs.renderFile);
+
+app.use(methodOverride('_method'));
 
 app.use("/",routes);
