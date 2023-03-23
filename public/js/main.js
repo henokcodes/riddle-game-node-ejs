@@ -73,6 +73,7 @@ function music_stop() {
 
 window.onload = ()=>{
     updatehscore();
+    updateleaderboard();
 }
 
 // Next Button event
@@ -106,7 +107,7 @@ $(".replay-btn").click( () => {
 
 // Quit Button event
 $(".quit-btn").click( () => {
-    window.location.reload();
+    $(".score-box").removeClass("active");
 });
 
 const option_list = document.querySelector(".option-list");
@@ -186,13 +187,29 @@ function updatehscore(){
         console.log(res)   
     }).fail(function(){
         console.log("error")
-    })
-
-   
-    
-    
+    }) 
 }
-
+//leaderboard
+function updateleaderboard(){
+    let i=1;
+    let list =  $('.leaderboard-box section');
+    let blink =  $('.blink');
+    let p = '';
+    $.ajax('/getallscore', {
+        type:'post'
+    }).done(function(res){
+       let span =  '<span id="name">' + res[0].username + '</span> - <span id="score">'+ res[0].score.score+'</span> ';
+        for(let object of res){
+          p+='<p>'+ i +'. <strong class="timestamp">'+ object.username+ '</strong> : <strong class="sco">'+ object.score.score +'</strong> : <strong class="sco">'+ object.score.timestamp +'</strong></p>';
+            i++;
+        }
+        blink.append(span);
+        list.append(p);
+        console.log(res)   
+    }).fail(function(){
+        console.log("error")
+    }) 
+}
 // Function for Show Score
 function showScore(correctAnswers, allQuestions) {
     const cookieValue = document.cookie

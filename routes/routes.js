@@ -148,9 +148,46 @@ app.get("/", (req, res, next) => {
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
-    res.send(user.score.sort({}));
+    res.send(user.score.sort((a,b) => b.score - a.score));
    });
 
+   app.post("/getallscore", async (req, res) => { 
+
+    const user = await User.find();
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }  
+    let data = [];
+    let max = {};
+    let obj;
+    for(let ele of user){
+         max.score=0;
+       for(let elem in ele.score){
+        // console.log(ele.score[elem])
+        if(ele.score[elem].score >= max.score ){
+            max.score = ele.score[elem].score;
+            max.timestamp = ele.score[elem].timestamp;
+        }
+       
+    }
+    if(max.score > 0 ){
+        obj = {
+            username :ele.username,
+            score : {
+                score: max.score,
+                timestamp: max.timestamp 
+            }       
+        }
+
+        data.push(obj);
+    }
+         
+    }
+    
+    data.sort((a,b) => b.score.score - a.score.score);
+    console.log(data)
+    res.send(data);
+   });
 
 
 app.get("/error", (req, res, next) => {
