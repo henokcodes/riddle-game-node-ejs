@@ -24,7 +24,7 @@
 
 <body>
     <div class="musicOn">
-        <audio id="audio" style="display:none;" src="/audio/bgsound.wav" controls autoplay loop>
+        <audio id="audio" style="display:none;" src="/audio/bgsound.wav" controls loop>
       </div>
       <div class="timedate">
         <span><strong id="time"></strong></span>
@@ -74,9 +74,9 @@
         <section  class="card-body">
             <p>Sound:</p>
             <label for="">On</label>
-            <input type="radio" name="sound" id="sound_off">
-            <label for="">Off</label>
             <input type="radio" name="sound" id="sound_on">
+            <label for="">Off</label>
+            <input checked type="radio" name="sound" id="sound_off">
         </section>
         <footer class="card-footer">
             <button class="btn btn-primary oback">Back to Menu</button>
