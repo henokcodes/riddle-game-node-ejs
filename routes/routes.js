@@ -4,6 +4,8 @@ let app = express.Router();
 const bcrypt = require("bcryptjs");
 const Question = require('../models/question')
 const User = require("../models/user");
+var level = 'easy';
+
 
 app.get("/", (req, res, next) => {
   if (
@@ -85,6 +87,9 @@ app.post("/signup", (req, res) => {
         password,
         score,
       });
+
+     
+
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
@@ -197,6 +202,18 @@ app.post('/questions', async (req, res) => {
   const question = new Question({ text, choices: choices.split(','), answer, difficulty });
   await question.save();
   res.redirect('/');
+});
+
+app.post('/post_level', function(req, res) {
+   level = req.body.level;
+   res.redirect('back')
+});
+
+app.get('/display_all_questions', async (req, res) => {
+  const questions = await Question.find({difficulty: level});
+  res.send({questions})
+  
+  
 });
 
 app.delete('/questions/:id', async (req, res) => {

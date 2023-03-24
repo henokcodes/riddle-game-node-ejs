@@ -38,6 +38,17 @@ $('#sound_off').click(()=>{
 $('#sound_on').click(()=>{
     audio.paused ? audio.play() : music_stop(); 
 })
+
+// // Get the selected level element
+// var levelElement = document.querySelector('select[name="level"]');
+
+// // Get the selected value
+// var selectedLevel = levelElement.value;
+
+// // Print the selected value
+// console.log(selectedLevel);
+
+
 // on_off.onclick = function() {
 //   audio.paused ? audio.play() : music_stop();
 // }
@@ -152,7 +163,8 @@ function optionSelected(option) {
     } else {
         option.classList.add("incorrect");
         option.insertAdjacentHTML("beforeend", incorrectIcon);
-    }allQuestions
+    }
+    // allQuestions
 
     for (let i = 0; i < option_list.children.length; i++) {
         option_list.children[i].classList.add("disabled");
