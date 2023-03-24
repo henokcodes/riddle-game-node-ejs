@@ -18,10 +18,9 @@ body {
 .questions-list{
     display:flex;
     justify-content: center;
-    align-items: center; 
-        height:500px;
-        overflow:scroll;
-        overflow-x:hidden;
+    align-items: start; 
+    max-height:400px;
+    overflow: auto;
 }
 
 .timedate{
@@ -124,9 +123,10 @@ button{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    transition: all .4s ease;
     box-shadow: 0 0 7px;
     height:500px;
-    overflow:scroll;
+    overflow:auto;
     overflow-x:hidden;
 }
 .highscore-box.active {
@@ -140,6 +140,7 @@ button{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    transition: all .4s ease;
     box-shadow: 0 0 7px;
     height:400px;
     overflow:scroll;
@@ -210,7 +211,7 @@ footer {
 
     transform: translate(-50%, -50%) scale(0.7);
     transition: all .4s ease;
-    color: blue;
+    color: #ffc107;
     text-align: center;
     padding: 20px 0;
 }
@@ -327,6 +328,11 @@ header {
     }
 
 }
+.difficulty{
+    background-color: #ffc107;
+    border-radius:10px;
+    padding:5px
+}
 .bubble-background {
     /* position: relative;
 height: 100vh;
@@ -430,4 +436,56 @@ background-color: #d08b0b; */
       transform: scale(2);
       opacity: 0;
     }
+  }
+  table {
+    border-collapse: collapse;
+    border: 0;
+  }
+  th,
+  td {
+    border: 1px solid #aaa;
+    background-clip: padding-box;
+    scroll-snap-align: start;
+  }
+  tbody tr:last-child th,
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+  thead {
+    z-index: 1000;
+    position: relative;
+  }
+  th,
+  td {
+    padding: 0.6rem;
+    min-width: 6rem;
+    text-align: left;
+    margin: 0;
+  }
+  thead th {
+    position: sticky;
+    top: 0;
+    border-top: 0;
+    background-clip: padding-box;
+  }
+  thead th.pin {
+    left: 0;
+    z-index: 1001;
+    border-left: 0;
+  }
+  tbody th {
+    background-clip: padding-box;
+    border-left: 0;
+  }
+  tbody {
+    z-index: 10;
+    position: relative;
+  }
+  tbody th {
+    position: sticky;
+    left: 0;
+  }
+  thead th,
+  tbody th {
+    background-color: #f8f8f8;
   }

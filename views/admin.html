@@ -40,6 +40,7 @@ function refreshTime() {
         <a href="/logout"><img src="/images/logout.png" width="50px" alt=""></a>
       </div>
 
+      
       <div class="questions-box">
         <div class=" col-md-6 mb-4">
           <div class="card">
@@ -47,13 +48,13 @@ function refreshTime() {
               <h2>Add Question</h2>
             </div>
             <div class="card-body">
-              <form action="/questions" method="POST">
+              <form >
                 <div class="mb-3">
                   <label for="text" class="form-label">Question Text</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="text"
+                    id="qtext"
                     name="text"
                     required
                   />
@@ -65,7 +66,7 @@ function refreshTime() {
                   <input
                     type="text"
                     class="form-control"
-                    id="choices"
+                    id="qchoices"
                     name="choices"
                     required
                   />
@@ -75,11 +76,11 @@ function refreshTime() {
                   <select
                     class="form-select"
                     id="answer"
-                    name="answer"
+                    name="qanswer"
                     required
                   >
                     <option value="" disabled selected>
-                      Select Correct Answer
+                      Select the Correct Answer
                     </option>
                     <option value="a">A</option>
                     <option value="b">B</option>
@@ -92,7 +93,7 @@ function refreshTime() {
                   <select
                     class="form-select"
                     id="difficulty"
-                    name="difficulty"
+                    name="qdifficulty"
                     required
                   >
                     <option value="" disabled selected>
@@ -103,7 +104,7 @@ function refreshTime() {
                     <option value="hard">Hard</option>
                   </select>
                 </div>
-                <button type="submit" class="btn btn-primary">
+                <button onclick="addQuestion()" class="btn btn-primary">
                   Add Question
                 </button>
               </form>
@@ -111,12 +112,11 @@ function refreshTime() {
           </div>
         </div>
       </div>
-      
     <div class="questions-list">
       <div class="col-md-6 mb-4">
-      <div class="card">
+      <div class="card ">
         <div class="card-header">
-          <h2>Available Questions</h2>
+          <h2>Available Questions <span>( <%= questions.length  %> )</span></h2>
         </div>
         <div class="card-body">
           <ul class="list-group">
@@ -134,10 +134,10 @@ function refreshTime() {
             <% }); %>
           </ul>
         </div>
-     
+      </div>
       </div>
     </div>
-  </div>
+  
   
 
 </body>

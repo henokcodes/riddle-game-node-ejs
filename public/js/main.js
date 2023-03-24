@@ -38,6 +38,7 @@ $(".btn-start").click(() => {
     showNumber(quiz.questionIndex + 1, quiz.questions.length);
     startTimer(10);
     startLine();
+    $('.difficulty').text($('#level').val())
 });
 
 
@@ -222,7 +223,12 @@ function optionSelected(option) {
     if (question.checkAnswer(answer)) {
         option.classList.add("correct");
         option.insertAdjacentHTML("beforeend", correctIcon);
+        if($('.difficulty').text()=="easy")
         quiz.correctAnswers++;
+        else if($('.difficulty').text()=="medium")
+        quiz.correctAnswers+=2;
+        else if($('.difficulty').text()=="hard")
+        quiz.correctAnswers+=3;
     } else {
         option.classList.add("incorrect");
         option.insertAdjacentHTML("beforeend", incorrectIcon);
@@ -309,7 +315,7 @@ function showScore(correctAnswers, allQuestions) {
         })
     
     
-    let tag = `You have ${correctAnswers} correct answers out of ${allQuestions}`;
+    let tag = `You have got ${correctAnswers} points out of ${allQuestions} questions`;
     $(".score-text").html(tag);
 
     updatehscore();
@@ -360,4 +366,21 @@ function startLine() {
             clearInterval(counterLine);
         }
     }
+}
+
+function addQuestion(){
+
+    $.ajax('/questions',{
+        type: 'post',
+        data: {
+            text: $('#qtext').val(), 
+            choices: $('#qchoices').val(),
+            answer: $('#qanswer').val(), 
+            difficulty: $('qdifficulty').val()
+         }
+      }).done((res)=>{
+        console.log("Success")
+      }).fail(function(){
+        console.log("error setting level")
+      })
 }
