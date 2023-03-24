@@ -17,7 +17,7 @@ app.listen(80, () => {
     console.log('Your Server is running on 80');
 })
 mongoose
-  .connect("mongodb://localhost:27017/riddle_game", {
+  .connect("mongodb+srv://henok:1234asdf@cluster0.jyg1b.mongodb.net/riddle_game?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

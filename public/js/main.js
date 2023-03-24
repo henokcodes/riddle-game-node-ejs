@@ -1,4 +1,34 @@
-const quiz = new Quiz(questions);
+let quiz =new Quiz(questions);
+
+
+const gLevel = document.getElementById('level');
+
+gLevel.addEventListener('change', (event) => {
+  const selectedValue = event.target.value;
+  console.log('Selected value:', selectedValue);
+  $.ajax('/post_level',{
+    type: 'post',
+    data: {
+        level: selectedValue
+     }
+  }).done((res)=>{
+    questions = [];
+    for(let val of res.questions){
+        questions.push( new Question( val.text,{
+            a:val.choices[0],
+            b:val.choices[1],
+            c:val.choices[2],
+            d:val.choices[3]
+        },val.answer))
+    }
+    const randomQuestions =  questions.sort(() => Math.random() - 0.5).slice(0, 5); 
+    quiz = new Quiz(randomQuestions);
+  }).fail(function(){
+    console.log("error setting level")
+  })
+//   console.log('Selected value:', selectedValue);
+  // Do something with the selected value
+});
 
 const highScore = [];
 // Start Button event
@@ -10,23 +40,7 @@ $(".btn-start").click(() => {
     startLine();
 });
 
-const gLevel = document.getElementById('level');
-gLevel.addEventListener('change', (event) => {
-  const selectedValue = event.target.value;
-  console.log('Selected value:', selectedValue);
-  $.ajax('/post_level',{
-    type: 'post',
-    data: {
-        level: selectedValue
-     }
-  }).done((res)=>{
-    console.log("ajax "+res);
-  }).fail(function(){
-    console.log("error setting level")
-  })
-//   console.log('Selected value:', selectedValue);
-  // Do something with the selected value
-});
+
 
 `use strict`;
 function refreshTime() {
@@ -103,8 +117,38 @@ function music_stop() {
 window.onload = ()=>{
     updatehscore();
     updateleaderboard();
+
+    const cookieValue = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("user_name="))
+    ?.split("=")[1];
+    if(cookieValue)
+    $('.loggeduser').text("Welcome, " +cookieValue)
+
+    $.ajax('/post_level',{
+        type: 'post',
+        data: {
+            level: "easy"
+         }
+      }).done((res)=>{
+        questions = [];
+        for(let val of res.questions){
+            questions.push( new Question( val.text,{
+                a:val.choices[0],
+                b:val.choices[1],
+                c:val.choices[2],
+                d:val.choices[3]
+            },val.answer))
+        }
+        const randomQuestions =  questions.sort(() => Math.random() - 0.5).slice(0, 5); 
+         quiz = new Quiz(randomQuestions);
+    
+      }).fail(function(){
+        console.log("error setting level")
+      })
 }
 
+setInterval(updateleaderboard, 10000 );
 // Next Button event
 $(".next").click( () => {
     if (quiz.questions.length > quiz.questionIndex + 1) {
@@ -213,10 +257,11 @@ function updatehscore(){
         } 
     }).done(function(res){
         for(let object of res){
-          p+='<p><strong class="timestamp">'+ object.timestamp+ '</strong> : <strong class="sco">'+ object.score +'</strong></p>';
+            if(object!=undefined && parseInt(object.score)>0)
+          p+='<p><strong class="timestamp">'+ object.timestamp+ '</strong> : <strong class="sco">'+ object.score +'</strong></p><hr/>';
         }
         list.append(p);
-        console.log(res)   
+         
     }).fail(function(){
         console.log("error")
     }) 
@@ -228,17 +273,18 @@ function updateleaderboard(){
     let blink =  $('.blink');
     let p = '';
     list.empty();
+    blink.empty();
     $.ajax('/getallscore', {
         type:'post'
     }).done(function(res){
-       let span =  '<span id="name">' + res[0].username + '</span> - <span id="score">'+ res[0].score.score+'</span> ';
+       let span =  'Top Scorer: <span id="name">' + res[0].username + '</span> - <span id="score">'+ res[0].score.score+'</span> ';
         for(let object of res){
-          p+='<p>'+ i +'. <strong class="timestamp">'+ object.username+ '</strong> : <strong class="sco">'+ object.score.score +'</strong> : <strong class="sco">'+ object.score.timestamp +'</strong></p>';
+          p+='<p>'+ i +'. <strong class="timestamp">'+ object.username+ '</strong> : <strong class="sco">'+ object.score.score +'</strong> : <strong class="sco">'+ object.score.timestamp +'</strong></p><hr/>';
             i++;
         }
         blink.append(span);
         list.append(p);
-        console.log(res)   
+          
     }).fail(function(){
         console.log("error")
     }) 
@@ -256,7 +302,7 @@ function showScore(correctAnswers, allQuestions) {
                 score: correctAnswers
             } 
         }).done(function(res){
-            console.log(res)
+            // console.log(res)
             
         }).fail(function(){
             console.log("error")

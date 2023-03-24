@@ -201,16 +201,19 @@ app.post('/questions', async (req, res) => {
   const { text, choices, answer, difficulty } = req.body;
   const question = new Question({ text, choices: choices.split(','), answer, difficulty });
   await question.save();
-  res.redirect('/');
+  res.send(question);
 });
 
-app.post('/post_level', function(req, res) {
+app.post('/post_level',async function(req, res) {
    level = req.body.level;
+   const questions = await Question.find({difficulty: level});
    
-   res.send(level);
+   res.send({questions})
+  //  res.send(level);
 });
 
-app.get('/display_all_questions', async (req, res) => {
+
+app.post('/display_all_questions', async (req, res) => {
   const questions = await Question.find({difficulty: level});
   res.send({questions})
   

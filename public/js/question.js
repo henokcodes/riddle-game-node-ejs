@@ -14,18 +14,21 @@ class Question {
 // fetch all questions from the routes.js
 let questions = []
 
-fetch('/display_all_questions').then(response => response.json()).then(data =>{
-    console.log(data.questions)
-    for(let val of data.questions){
-        questions.push( new Question( val.text,{
-            a:val.choices[0],
-            b:val.choices[1],
-            c:val.choices[2],
-            d:val.choices[3]
-        },val.answer))
-    }
+// function updateQuestions(){
+// fetch('/post_level').then(response => response.json()).then(data =>{
+//     console.log(data.questions)
+//     for(let val of data.questions){
+//         questions.push( new Question( val.text,{
+//             a:val.choices[0],
+//             b:val.choices[1],
+//             c:val.choices[2],
+//             d:val.choices[3]
+//         },val.answer))
+//     }
     
-}).catch(err => console.log(err))
+// }).catch(err => console.log(err))
+
+// }
 
 
 
