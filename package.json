@@ -1,0 +1,30 @@
+{
+  "name": "riddle-game-node-ejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henokcodes/riddle-game-node-ejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/henokcodes/riddle-game-node-ejs/issues"
+  },
+  "homepage": "https://github.com/henokcodes/riddle-game-node-ejs#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
+    "express-session": "^1.17.3",
+    "expresss": "^0.0.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^7.0.3"
+  }
+}
