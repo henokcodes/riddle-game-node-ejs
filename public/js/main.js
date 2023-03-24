@@ -10,6 +10,24 @@ $(".btn-start").click(() => {
     startLine();
 });
 
+const gLevel = document.getElementById('level');
+gLevel.addEventListener('change', (event) => {
+  const selectedValue = event.target.value;
+  console.log('Selected value:', selectedValue);
+  $.ajax('/post_level',{
+    type: 'post',
+    data: {
+        level: selectedValue
+     }
+  }).done((res)=>{
+    console.log("ajax "+res);
+  }).fail(function(){
+    console.log("error setting level")
+  })
+//   console.log('Selected value:', selectedValue);
+  // Do something with the selected value
+});
+
 `use strict`;
 function refreshTime() {
   const timeDisplay = $("#time");
@@ -105,6 +123,7 @@ $(".next").click( () => {
         $(".quiz-box").removeClass("active");
         $(".score-box").addClass("active");
         showScore(quiz.correctAnswers, quiz.questions.length);
+        quiz.correctAnswers = 0;
     }
 });
 
@@ -179,6 +198,7 @@ function showNumber(questionNumber, allQuestions) {
 
 function updatehscore(){
     let list =  $('.highscore-box section');
+    list.empty();
     let p = '';
 
    
@@ -207,6 +227,7 @@ function updateleaderboard(){
     let list =  $('.leaderboard-box section');
     let blink =  $('.blink');
     let p = '';
+    list.empty();
     $.ajax('/getallscore', {
         type:'post'
     }).done(function(res){

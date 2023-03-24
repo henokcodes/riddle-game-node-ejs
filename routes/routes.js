@@ -206,7 +206,8 @@ app.post('/questions', async (req, res) => {
 
 app.post('/post_level', function(req, res) {
    level = req.body.level;
-   res.redirect('back')
+   
+   res.send(level);
 });
 
 app.get('/display_all_questions', async (req, res) => {
