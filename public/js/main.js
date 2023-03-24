@@ -33,10 +33,10 @@ function refreshTime() {
 
 let audio = document.querySelector('.musicOn audio');
 $('#sound_off').click(()=>{
-    audio.paused ? audio.play() : music_stop(); 
+    music_stop(); 
 })
 $('#sound_on').click(()=>{
-    audio.paused ? audio.play() : music_stop(); 
+     audio.play() 
 })
 
 // // Get the selected level element
